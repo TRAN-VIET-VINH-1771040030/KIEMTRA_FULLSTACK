@@ -16,11 +16,10 @@ const AdminDashboard = () => {
     const fetchDashboardData = async () => {
       try {
         setLoading(true);
-        // Gọi đồng thời 3 API để lấy số lượng thực tế
         const [resMembers, resCourts, resTours] = await Promise.all([
           axios.get(`${API_BASE}/Members`),
           axios.get(`${API_BASE}/Courts`),
-          axios.get(`${API_BASE}/Tournaments`).catch(() => ({ data: [] })) // Tránh lỗi nếu chưa có API giải đấu
+          axios.get(`${API_BASE}/Tournaments`).catch(() => ({ data: [] }))
         ]);
 
         setStats({
@@ -41,93 +40,112 @@ const AdminDashboard = () => {
   return (
     <div style={styles.container}>
       <div style={styles.header}>
-        <h2 style={styles.title}>Dashboard Thống Kê</h2>
+        <h2 style={styles.title}>Dashboard Thống Kê 📊</h2>
         <p style={styles.subtitle}>Chào mừng Admin! Dưới đây là tình hình hoạt động của PCM 030.</p>
       </div>
 
       {loading ? (
-        <p>Đang cập nhật số liệu...</p>
+        <div style={styles.loading}>Đang cập nhật số liệu... ⏳</div>
       ) : (
         <div style={styles.statsGrid}>
           {/* Card Hội viên */}
-          <div style={{ ...styles.card, borderLeft: '6px solid #0284c7' }}>
-            <div style={styles.cardIconBox}>
-              <Users size={28} color="#0284c7" />
-            </div>
+          <div style={styles.card}>
             <div>
               <p style={styles.cardLabel}>Tổng Hội viên</p>
               <h3 style={styles.cardValue}>{stats.members}</h3>
             </div>
+            <div style={{ ...styles.cardIconBox, backgroundColor: '#e0f2fe' }}>
+              <Users size={32} color="#0284c7" />
+            </div>
           </div>
 
           {/* Card Sân bãi */}
-          <div style={{ ...styles.card, borderLeft: '6px solid #10b981' }}>
-            <div style={styles.cardIconBox}>
-              <Landmark size={28} color="#10b981" />
-            </div>
+          <div style={styles.card}>
             <div>
               <p style={styles.cardLabel}>Sân đang quản lý</p>
               <h3 style={styles.cardValue}>{stats.courts}</h3>
             </div>
+            <div style={{ ...styles.cardIconBox, backgroundColor: '#dcfce7' }}>
+              <Landmark size={32} color="#10b981" />
+            </div>
           </div>
 
           {/* Card Giải đấu */}
-          <div style={{ ...styles.card, borderLeft: '6px solid #f59e0b' }}>
-            <div style={styles.cardIconBox}>
-              <Trophy size={28} color="#f59e0b" />
-            </div>
+          <div style={styles.card}>
             <div>
               <p style={styles.cardLabel}>Giải đấu sắp tới</p>
               <h3 style={styles.cardValue}>{stats.tournaments}</h3>
+            </div>
+            <div style={{ ...styles.cardIconBox, backgroundColor: '#fef3c7' }}>
+              <Trophy size={32} color="#f59e0b" />
             </div>
           </div>
         </div>
       )}
 
-      {/* Phần trang trí thêm cho Dashboard bớt trống */}
-      <div style={styles.welcomeBox}>
-        <Activity size={40} color="#0284c7" style={{ marginBottom: '15px' }} />
-        <h3>Hệ thống vận hành ổn định</h3>
-        <p>Tất cả các kết nối API đến Backend (localhost:5233) đang hoạt động bình thường.</p>
-      </div>
+      
     </div>
   );
 };
 
 const styles = {
-  container: { padding: '10px' },
-  header: { marginBottom: '30px' },
-  title: { fontSize: '24px', fontWeight: 'bold', color: '#1e293b', margin: '0 0 5px 0' },
-  subtitle: { color: '#64748b', fontSize: '14px' },
-  statsGrid: { display: 'flex', gap: '20px', flexWrap: 'wrap' },
+  container: { 
+    padding: '30px', 
+    backgroundColor: '#f8fafc', 
+    minHeight: '100vh' 
+  },
+  header: { marginBottom: '40px' },
+  title: { 
+    fontSize: '28px', 
+    fontWeight: '800', 
+    color: '#0f172a', 
+    margin: '0 0 8px 0' 
+  },
+  subtitle: { color: '#64748b', fontSize: '16px' },
+  loading: { fontSize: '18px', color: '#64748b', textAlign: 'center', padding: '50px' },
+  statsGrid: { 
+    display: 'grid', 
+    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+    gap: '24px' 
+  },
   card: {
-    flex: '1 1 250px',
     backgroundColor: 'white',
-    padding: '25px',
-    borderRadius: '16px',
+    padding: '32px',
+    borderRadius: '24px',
     display: 'flex',
     alignItems: 'center',
-    gap: '20px',
-    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+    justifyContent: 'space-between',
+    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+    border: '1px solid #f1f5f9'
   },
   cardIconBox: {
-    width: '50px',
-    height: '50px',
-    borderRadius: '12px',
-    backgroundColor: '#f8fafc',
+    width: '64px',
+    height: '64px',
+    borderRadius: '20px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
   },
-  cardLabel: { fontSize: '14px', color: '#64748b', margin: 0 },
-  cardValue: { fontSize: '28px', fontWeight: 'bold', color: '#1e293b', margin: 0 },
+  cardLabel: { 
+    fontSize: '15px', 
+    fontWeight: '600', 
+    color: '#64748b', 
+    margin: '0 0 10px 0' 
+  },
+  cardValue: { 
+    fontSize: '36px', 
+    fontWeight: '800', 
+    color: '#1e293b', 
+    margin: 0 
+  },
   welcomeBox: {
-    marginTop: '40px',
-    padding: '40px',
-    backgroundColor: '#e0f2fe',
-    borderRadius: '24px',
+    marginTop: '50px',
+    padding: '60px',
+    background: 'linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%)',
+    borderRadius: '32px',
     textAlign: 'center',
-    color: '#0369a1'
+    color: '#0369a1',
+    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.05)'
   }
 };
 
