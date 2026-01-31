@@ -9,7 +9,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5233/api/Members", {
+      await axios.post("https://kiemtra-fullstack.onrender.com/api/Members", {
         ...data,
         joinDate: new Date().toISOString(),
         isActive: true,

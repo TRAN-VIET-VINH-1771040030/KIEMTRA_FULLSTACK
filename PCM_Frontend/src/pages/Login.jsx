@@ -23,7 +23,7 @@ const Login = ({ setUser, type }) => {
     } else {
       // Kiểm tra Khách hàng từ Database 👤
       try {
-        const res = await axios.get("http://localhost:5233/api/Members");
+        const res = await axios.get("https://kiemtra-fullstack.onrender.com/api/Members");
         const foundMember = res.data.find(m => m.email === email && m.phoneNumber === password);
 
         if (foundMember) {

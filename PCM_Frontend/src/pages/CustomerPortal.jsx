@@ -8,7 +8,7 @@ const CustomerPortal = ({ user, logout }) => {
 
   useEffect(() => {
     // Lấy danh sách sân từ Backend
-    axios.get("http://localhost:5233/api/Courts")
+    axios.get("https://kiemtra-fullstack.onrender.com/api/Courts")
       .then(res => setCourts(res.data))
       .catch(err => console.log("Lỗi tải sân bãi"));
   }, []);
@@ -30,7 +30,7 @@ const CustomerPortal = ({ user, logout }) => {
         const newBalance = balance - court.pricePerHour;
         
         // Cập nhật số dư hội viên qua API
-        await axios.put(`http://localhost:5233/api/Members/${user.id}`, {
+        await axios.put(`https://kiemtra-fullstack.onrender.com/api/Members/${user.id}`, {
           ...user,
           accountBalance: newBalance
         });

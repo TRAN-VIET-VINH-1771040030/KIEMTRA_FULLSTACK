@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Users, Landmark, Trophy, Activity } from 'lucide-react';
 
-const API_BASE = "http://localhost:5233/api";
+const API_BASE = "https://kiemtra-fullstack.onrender.com/api";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Trophy, Calendar, DollarSign, Trash2, Plus } from 'lucide-react';
 
-const API_BASE = "http://localhost:5233/api";
+const API_BASE = "https://kiemtra-fullstack.onrender.com/api";
 
 const AdminTournaments = () => {
   const [tournaments, setTournaments] = useState([]);

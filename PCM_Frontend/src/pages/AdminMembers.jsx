@@ -7,7 +7,7 @@ const AdminMembers = () => {
 
   const fetchMembers = async () => {
     try {
-      const res = await axios.get("http://localhost:5233/api/Members");
+      const res = await axios.get("https://kiemtra-fullstack.onrender.com/api/Members");
       setMembers(res.data);
     } catch (err) {
       console.error("Lỗi tải danh sách hội viên");
