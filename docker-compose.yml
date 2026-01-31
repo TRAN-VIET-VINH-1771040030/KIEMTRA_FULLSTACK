@@ -1,0 +1,17 @@
+services:
+  db: # Đây là máy chủ Database
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Password123!@#
+    ports:
+      - "1433:1433"
+
+  api: # Đây là Backend của bạn
+    build: ./PCM_Backend
+    depends_on:
+      - db
+    ports:
+      - "5233:8080"
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=PCM_030;User Id=sa;Password=Password123!@#;TrustServerCertificate=True;

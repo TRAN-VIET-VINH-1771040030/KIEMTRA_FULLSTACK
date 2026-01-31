@@ -17,17 +17,16 @@ namespace PCM_Backend.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Chỉ định chính xác tên bảng có tiền tố 030_ như trong SQL của bạn
+            // Mapping bảng theo cấu hình của Vinh
             modelBuilder.Entity<Member>().ToTable("030_Members");
             modelBuilder.Entity<Court>().ToTable("030_Courts");
             modelBuilder.Entity<Booking>().ToTable("030_Bookings");
-            
-            // Bảng Tournaments không có tiền tố trong hình của bạn
             modelBuilder.Entity<Tournament>().ToTable("Tournaments"); 
 
-            // Cấu hình tiền tệ để tránh lỗi Warning khi Migration
+            // Cấu hình kiểu dữ liệu decimal để tránh lỗi lưu trữ
             modelBuilder.Entity<Member>().Property(m => m.AccountBalance).HasColumnType("decimal(18,2)");
             modelBuilder.Entity<Court>().Property(c => c.PricePerHour).HasColumnType("decimal(18,2)");
+            modelBuilder.Entity<Tournament>().Property(t => t.Prize).HasColumnType("decimal(18,2)");
         }
     }
 }
